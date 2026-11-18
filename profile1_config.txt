@@ -1,0 +1,60 @@
+! NetArchitect - generated Cisco IOS configuration
+! Review interface names, VLAN IDs and routing policy before deployment.
+configure terminal
+ip routing
+! VLAN interfaces and default gateways
+vlan 10
+ name STUDENTS
+ exit
+interface Vlan10
+ description STUDENTS default gateway
+ ip address 10.10.0.1 255.255.254.0
+ no shutdown
+ exit
+vlan 20
+ name FACULTY
+ exit
+interface Vlan20
+ description FACULTY default gateway
+ ip address 10.10.2.1 255.255.255.0
+ no shutdown
+ exit
+vlan 30
+ name IOT
+ exit
+interface Vlan30
+ description IOT default gateway
+ ip address 10.10.3.1 255.255.255.0
+ no shutdown
+ exit
+vlan 40
+ name ADMIN
+ exit
+interface Vlan40
+ description ADMIN default gateway
+ ip address 10.10.4.1 255.255.255.128
+ no shutdown
+ exit
+vlan 50
+ name MANAGEMENT
+ exit
+interface Vlan50
+ description MANAGEMENT default gateway
+ ip address 10.10.4.129 255.255.255.192
+ no shutdown
+ exit
+router ospf 1
+ router-id 1.1.1.1
+ network 10.10.0.0 0.0.1.255 area 0
+ network 10.10.2.0 0.0.0.255 area 0
+ network 10.10.3.0 0.0.0.255 area 0
+ network 10.10.4.0 0.0.0.127 area 0
+ network 10.10.4.128 0.0.0.63 area 0
+ exit
+! Example management ACL - replace the permitted source with the admin subnet.
+ip access-list standard NETARCHITECT-MGMT
+ permit 10.10.4.128 0.0.0.63
+ deny any log
+ exit
+end
+! end of generated example

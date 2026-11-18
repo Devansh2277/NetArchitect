@@ -1,0 +1,54 @@
+! NetArchitect - generated Cisco IOS configuration
+! Review interface names, VLAN IDs and routing policy before deployment.
+configure terminal
+ip routing
+! VLAN interfaces and default gateways
+vlan 10
+ name HQ_USERS
+ exit
+interface Vlan10
+ description HQ_USERS default gateway
+ ip address 10.20.0.1 255.255.255.0
+ no shutdown
+ exit
+vlan 20
+ name REMOTE_A
+ exit
+interface Vlan20
+ description REMOTE_A default gateway
+ ip address 10.20.1.1 255.255.255.128
+ no shutdown
+ exit
+vlan 30
+ name REMOTE_B
+ exit
+interface Vlan30
+ description REMOTE_B default gateway
+ ip address 10.20.1.129 255.255.255.128
+ no shutdown
+ exit
+vlan 40
+ name VOICE
+ exit
+interface Vlan40
+ description VOICE default gateway
+ ip address 10.20.2.1 255.255.255.192
+ no shutdown
+ exit
+vlan 50
+ name MANAGEMENT
+ exit
+interface Vlan50
+ description MANAGEMENT default gateway
+ ip address 10.20.2.65 255.255.255.224
+ no shutdown
+ exit
+! Multisite design: configure OSPF process and eBGP peers per site policy.
+! Peer AS numbers and neighbor addresses are intentionally left as deployment inputs.
+! Example management ACL - replace the permitted source with the admin subnet.
+ip access-list standard NETARCHITECT-MGMT
+ permit 10.20.2.64 0.0.0.31
+ deny any log
+ exit
+end
+! end of generated example

@@ -1,0 +1,11 @@
+{
+  "description": "Warehouse, office and security device network",
+  "distance_m": 150,
+  "root_cidr": "172.16.0.0/23",
+  "subnets": {
+    "Warehouse_Scanners": 200,
+    "Office_Data": 100,
+    "Security_Cameras": 50
+  },
+  "is_multisite": false
+}
